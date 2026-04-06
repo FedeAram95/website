@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Boreal</title>
+  
+  <!-- Dynamic Google Fonts will be injected here by script.js -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link id="dynamic-font" rel="stylesheet" href="">
+
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  
+  <nav class="navbar">
+    <div class="container">
+      <div class="logo">
+        <a href="/" id="site-logo-link">
+          <img id="site-logo-img" src="" alt="Logo" style="display:none; max-height: 45px; object-fit: contain;">
+          <span id="site-name">Boreal</span>
+        </a>
+      </div>
+      <ul class="nav-links">
+        <li><a href="#services">Servicios</a></li>
+        <!-- <li><a href="#store">Tienda</a></li> -->
+        <li><a href="#about">Nosotros</a></li>
+        <li><a href="#contact">Contacto</a></li>
+        <li><a href="#portfolio">Portfolio</a></li>
+        <!-- <li>
+          <a href="#cart" class="icon-link" aria-label="Carrito" style="display:flex; align-items:center;">
+             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+          </a>
+        </li> -->
+        <!-- <li><a href="#work" class="cta-btn">Trabajemos juntos ↗</a></li> -->
+      </ul>
+    </div>
+  </nav>
+
+  <header id="home" class="hero">
+    <div class="hero-bg-overlay"></div>
+    <div class="container hero-content">
+      <h1 id="hero-title" class="fade-in-up">Hacemos diseño que inspira y conecta.</h1>
+      <p id="hero-subtitle" class="fade-in-up delay-1">Somos una agencia creativa enfocada en marcas con propósito.</p>
+      <a href="#services" class="btn primary fade-in-up delay-2">Conoce Más</a>
+    </div>
+  </header>
+  
+  <section id="services" class="services">
+    <div class="container">
+      <h2 class="section-title fade-in-up">Nuestros Servicios</h2>
+      <div id="services-grid" class="grid fade-in-up">
+        <!-- Services injected dynamically -->
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="about-section">
+    <div class="container about-container">
+      <div class="about-image-wrapper fade-in-up">
+        <img id="about-image" src="" alt="Sobre Nosotros">
+      </div>
+      <div class="about-content fade-in-up delay-1">
+        <h2 id="about-title" class="section-title" style="text-align: left; margin-bottom: 20px;"></h2>
+        <p id="about-desc"></p>
+      </div>
+    </div>
+  </section>
+
+  <section id="portfolio" class="portfolio-section">
+    <div class="container">
+      <h2 class="section-title">Nuestro Portfolio</h2>
+      <div class="portfolio-grid" id="portfolio-grid">
+        <!-- Portfolio items injected dynamically -->
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div id="social-links" class="social-links"></div>
+      <p id="footer-text">&copy; 2026 Boreal. Derechos Reservados.</p>
+    </div>
+  </footer>
+
+  <script src="/script.js"></script>
+</body>
+</html>
