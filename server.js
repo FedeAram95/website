@@ -69,9 +69,10 @@ app.get('/api/settings', (req, res) => {
 
 // API: Update Settings (Protected)
 app.post('/api/settings', verifyAdmin, (req, res) => {
-  const newSettings = req.body;
-  writeDB(newSettings);
-  res.json({ message: 'Configuración guardada exitosamente', settings: newSettings });
+  const currentSettings = readDB();
+  const updatedSettings = { ...currentSettings, ...req.body };
+  writeDB(updatedSettings);
+  res.json({ message: 'Configuración guardada exitosamente', settings: updatedSettings });
 });
 
 // API: Auth Login

@@ -8,12 +8,23 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // 2. Fetch Current Settings
   let currentSettings = {};
+  let dataLoaded = false;
+  const btnSave = document.getElementById('save-btn');
+  const saveStatus = document.getElementById('save-status');
+
+  btnSave.disabled = true;
+  saveStatus.textContent = '⏳ Cargando configuración...';
+
   try {
     const res = await fetch('/api/settings');
     currentSettings = await res.json();
     populateForm(currentSettings);
+    dataLoaded = true;
+    btnSave.disabled = false;
+    saveStatus.textContent = '';
   } catch(e) {
     console.error('Failed to load settings', e);
+    saveStatus.textContent = '❌ Error al cargar configuración';
   }
 
   // 3. Populate Form
@@ -227,8 +238,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // 4. Save Settings
   document.getElementById('save-btn').addEventListener('click', async () => {
+    if (!dataLoaded) return;
     const btn = document.getElementById('save-btn');
     btn.textContent = 'Guardando...';
+    btn.disabled = true;
 
     const newSettings = {
       siteName: document.getElementById('siteName').value,
@@ -266,5 +279,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     btn.textContent = 'Guardar Cambios';
+    btn.disabled = false;
   });
 });
