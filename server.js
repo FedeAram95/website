@@ -20,12 +20,35 @@ const multer = require('multer');
 const app = express();
 const PORT = process.env.PORT || 3000;
 const SECRET_KEY = 'boreal_super_secret_key_change_me';
-const DB_FILE = path.join(__dirname, 'database.json');
+
+// --- PERSISTENCE CONFIGURATION ---
+// Check if we are running on Fly.io with a volume at /data
+const DATA_DIR = fs.existsSync('/data') ? '/data' : __dirname;
+const DB_FILE = path.join(DATA_DIR, 'database.json');
+const UPLOADS_DIR = path.join(DATA_DIR, 'uploads');
+
+// Ensure uploads directory exists
+if (!fs.existsSync(UPLOADS_DIR)) {
+  fs.mkdirSync(UPLOADS_DIR, { recursive: true });
+}
+
+// Initial Database Setup (Copy default if missing on volume)
+if (!fs.existsSync(DB_FILE)) {
+  const defaultDB = path.join(__dirname, 'database.json');
+  if (fs.existsSync(defaultDB)) {
+    console.log('Initializing database on volume...');
+    fs.copyFileSync(defaultDB, DB_FILE);
+  } else {
+    // Create empty DB if nothing exists at all
+    fs.writeFileSync(DB_FILE, JSON.stringify({ siteName: "Boreal CMS" }, null, 2));
+  }
+}
+// ---------------------------------
 
 // Configuración de multer
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, path.join(__dirname, 'public', 'uploads'));
+    cb(null, UPLOADS_DIR);
   },
   filename: function (req, file, cb) {
     const ext = path.extname(file.originalname);
@@ -38,6 +61,8 @@ const upload = multer({ storage: storage });
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+// Serve uploads from the persistent directory
+app.use('/uploads', express.static(UPLOADS_DIR));
 app.use('/admin', express.static(path.join(__dirname, 'public', 'admin'))); // serve admin static files separately if needed
 
 // Helper to read DB
